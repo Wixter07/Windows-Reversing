@@ -208,5 +208,77 @@ Hmm I got the bit manipulations down. I'm missing something to define the solver
 
 Ok wait so the code defines bitwise manipulation for the 4 variables of the name. Worked a bit with ChatpGpt and yeah it should be z3.
 
-Honestly **itow_s** is doing something here
+Honestly **itow_s** is doing something here.
 
+Well f me I'm a complete idiot. How could I forget the serial number.
+
+```py
+from z3 import *
+
+var1 = BitVec('var1', 8)
+var2 = BitVec('var2', 8)
+var3 = BitVec('var3', 8)
+var4 = BitVec('var4', 8)
+
+
+v1_1bit = (var1 & 1) + 5
+v1_2bit = ((var1 >> 1) & 1) + 5
+v1_3bit = ((var1 >> 2) & 1) + 5
+v1_4bit = ((var1 >> 3) & 1) + 5
+v1_5bit = ((var1 >> 4) & 1) + 5
+
+v2_1bit = (var2 & 1) + 1
+v2_2bit = ((var2 >> 1) & 1) + 1
+v2_3bit = ((var2 >> 2) & 1) + 1
+v2_4bit = ((var2 >> 3) & 1) + 1
+v2_5bit = ((var2 >> 4) & 1) + 1
+
+v3_1bit = (var3 & 1) + 5
+v3_2bit = ((var3 >> 1) & 1) + 5
+v3_3bit = ((var3 >> 2) & 1) + 5
+v3_4bit = ((var3 >> 3) & 1) + 5
+v3_5bit = ((var3 >> 4) & 1) + 5
+
+v4_1bit = (var4 & 1) + 1
+v4_2bit = ((var4 >> 1) & 1) + 1
+v4_3bit = ((var4 >> 2) & 1) + 1
+v4_4bit = ((var4 >> 3) & 1) + 1
+v4_5bit = ((var4 >> 4) & 1) + 1
+
+
+solver = Solver()
+
+solver.add(And(var1 >= ord('a'), var1 <= ord('z')))
+solver.add(And(var2 >= ord('a'), var2 <= ord('z')))
+solver.add(And(var3 >= ord('a'), var3 <= ord('z')))
+solver.add(And(var4 >= ord('a'), var4 <= ord('z')))
+
+
+solver.add((v1_1bit + v2_3bit) == 7)
+solver.add((v1_4bit + v2_4bit) == 6)
+solver.add((v1_2bit + v2_5bit) == 8)
+solver.add((v1_3bit + v2_1bit) == 7)
+solver.add((v1_5bit + v2_2bit) == 6)
+solver.add((v3_1bit + v4_3bit) == 7)
+solver.add((v3_4bit + v4_4bit) == 7)
+solver.add((v3_2bit + v4_5bit) == 7)
+solver.add((v3_3bit + v4_1bit) == 7)
+solver.add((v3_5bit + v4_2bit) == 6)
+
+while solver.check() == sat:
+    model = solver.model()
+    result = chr(model[var1].as_long()) + chr(model[var2].as_long()) + chr(model[var3].as_long()) + chr(model[var4].as_long())
+    if result[-1] == 'p':
+        print(result)
+    solver.add(Or(var1 != model[var1].as_long(), var2 != model[var2].as_long(), var3 != model[var3].as_long(), var4 != model[var4].as_long()))
+
+```
+
+It's one of these names and bump is the most probable one
+
+![image](https://github.com/Wixter07/Windows-Reversing/assets/150792650/e79b1ba0-2311-4b05-87f9-2ad54064e834)
+
+Ran the exe and gave the inputs and it's correct 
+
+
+![image](https://github.com/Wixter07/Windows-Reversing/assets/150792650/e62b83df-3be9-4b49-9242-5d63f8f45561)
