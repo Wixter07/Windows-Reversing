@@ -207,3 +207,6 @@ So there's some bitwise operation and string comparisons. Z3 maybe?. I also see 
 Hmm I got the bit manipulations down. I'm missing something to define the solver.
 
 Ok wait so the code defines bitwise manipulation for the 4 variables of the name. Worked a bit with ChatpGpt and yeah it should be z3.
+
+Honestly **itow_s** is doing something here
+
