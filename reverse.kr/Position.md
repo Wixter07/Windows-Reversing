@@ -204,4 +204,6 @@ LABEL_2:
 
 So there's some bitwise operation and string comparisons. Z3 maybe?. I also see the limits for the input name and input number on graph view. So the name is of 4 bytes.
 
+Hmm I got the bit manipulations down. I'm missing something to define the solver.
+
 Ok wait so the code defines bitwise manipulation for the 4 variables of the name. Worked a bit with ChatpGpt and yeah it should be z3.
