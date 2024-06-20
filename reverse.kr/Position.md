@@ -201,3 +201,5 @@ LABEL_2:
   return 0;
 }
 ```
+
+So there's some bitwise operation and string comparisons. Z3 maybe?. I also see the limits for the input name and input number on graph view. So the name is of 4 bytes.
